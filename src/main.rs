@@ -15,7 +15,7 @@ fn main() {
             Ok((size, source)) => {
                 let _received_data = String::from_utf8_lossy(&buf[0..size]);
                 println!("Received {} bytes from {}", size, source);
-                let header = Header::new(1234, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+                let header = Header::new(1234, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0);
                 let questions = vec![Question::new("codecrafters.io".to_string(), 1, 1)];
                 let answers = vec![Answer::new(
                     "codecrafters.io".to_string(),
