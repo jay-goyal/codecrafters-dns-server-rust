@@ -9,23 +9,15 @@ pub struct Answer {
 
 impl Answer {
     pub fn new(
-        dname: String,
+        aname: Vec<u8>,
         qtype: u16,
         qclass: u16,
         attl: u32,
         rdlength: u16,
         rdata: Vec<u8>,
     ) -> Answer {
-        let mut qname = Vec::new();
-
-        dname.split(".").for_each(|l| {
-            qname.push(l.len() as u8);
-            qname.extend(l.bytes());
-        });
-        qname.push(0);
-
         Answer {
-            aname: qname,
+            aname,
             atype: qtype.to_be_bytes(),
             aclass: qclass.to_be_bytes(),
             attl: attl.to_be_bytes(),

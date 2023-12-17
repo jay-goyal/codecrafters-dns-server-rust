@@ -13,9 +13,8 @@ fn main() {
     loop {
         match udp_socket.recv_from(&mut buf) {
             Ok((size, source)) => {
-                let received_data = &buf[0..size];
+                let _received_data = &buf[0..size];
                 println!("Received {} bytes from {}", size, source);
-                println!("Received data: {received_data:#04X?}");
                 let message = Message::gen_response(&buf, size);
                 let response = message.as_bytes();
                 udp_socket

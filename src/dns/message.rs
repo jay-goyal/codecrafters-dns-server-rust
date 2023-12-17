@@ -28,10 +28,19 @@ impl Message {
             rcode = 4;
         }
 
+        let mut domain = Vec::new();
+        let mut idx = 12;
+        while message[idx] != 0 {
+            domain.push(message[idx]);
+            idx += 1;
+        }
+        domain.push(0);
+        println!("{domain:#04x?}");
+
         let header = Header::new(pid, 1, opcode, 0, 0, rd, 0, 0, rcode, 1, 1, 0, 0);
-        let questions = vec![Question::new("codecrafters.io".to_string(), 1, 1)];
+        let questions = vec![Question::new(domain.clone(), 1, 1)];
         let answers = vec![Answer::new(
-            "codecrafters.io".to_string(),
+            domain,
             1,
             1,
             60,
