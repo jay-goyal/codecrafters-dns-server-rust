@@ -36,7 +36,7 @@ impl Header {
         }
     }
 
-    pub fn as_bytes(&self) -> &[u8] {
-        &self.bytes
+    pub fn as_bytes(&self) -> [u8; 12] {
+        self.bytes.clone()
     }
 }
