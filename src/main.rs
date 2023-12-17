@@ -1,6 +1,6 @@
-use std::net::{Ipv4Addr, UdpSocket};
+use std::net::UdpSocket;
 
-use crate::dns::{answer::Answer, header::Header, message::Message, question::Question};
+use crate::dns::message::Message;
 mod dns;
 
 fn main() {
@@ -13,19 +13,10 @@ fn main() {
     loop {
         match udp_socket.recv_from(&mut buf) {
             Ok((size, source)) => {
-                let _received_data = String::from_utf8_lossy(&buf[0..size]);
+                let received_data = &buf[0..size];
                 println!("Received {} bytes from {}", size, source);
-                let header = Header::new(1234, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0);
-                let questions = vec![Question::new("codecrafters.io".to_string(), 1, 1)];
-                let answers = vec![Answer::new(
-                    "codecrafters.io".to_string(),
-                    1,
-                    1,
-                    60,
-                    4,
-                    Ipv4Addr::new(8, 8, 8, 8).octets().to_vec(),
-                )];
-                let message = Message::new(header, questions, answers);
+                println!("Received data: {received_data:#04X?}");
+                let message = Message::gen_response(&buf, size);
                 let response = message.as_bytes();
                 udp_socket
                     .send_to(&response, source)
