@@ -14,8 +14,6 @@ impl Question {
         });
         qname.push(0);
 
-        println!("{:#04x?}", qname);
-
         Question {
             qname,
             qtype: qtype.to_be_bytes(),
