@@ -18,7 +18,7 @@ impl Message {
 
     pub fn gen_response(message: &[u8], _size: usize) -> Message {
         let pid = ((message[0] as u16) << 8) + message[1] as u16;
-        let opcode = message[2] & 0b01111000;
+        let opcode = (message[2] & 0b01111000) >> 3;
         let rd = message[2] & 0b00000001;
         let rcode;
 
