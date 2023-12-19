@@ -15,7 +15,7 @@ fn main() {
             Ok((size, source)) => {
                 let _received_data = &buf[0..size];
                 println!("Received {} bytes from {}", size, source);
-                let message = Message::gen_response(&buf, size);
+                let message = Message::gen_response(&buf.to_vec(), size);
                 let response = message.as_bytes();
                 udp_socket
                     .send_to(&response, source)
